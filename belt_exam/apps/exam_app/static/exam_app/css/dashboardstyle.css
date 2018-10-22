@@ -1,0 +1,45 @@
+.blackborder{
+    border: 1px solid black;
+
+}
+
+form {
+    margin-top: 10px;
+}
+
+.padleftzero {
+    padding-left: 0px;
+}
+
+.tablediv {
+    display: inline-block;
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-left: -1px;
+}
+
+.blackborder {
+    border: 1px solid black;
+}
+
+.blackborder-right {
+    border-right: 1px solid black;
+}
+
+.blackborder-bottom {
+    border-bottom: 1px solid black;
+}
+
+.darkgraybg {
+    background-color: darkgray;
+}
+
+.graybg {
+    background-color: lightgray;
+}
+
+.formflash {
+    margin-left: 10px;
+    color: red;
+    font-size: 12px;
+}

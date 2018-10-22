@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'exam_app/css/dashboardstyle.css' %}">
+
+    <title>Quote Dashboard</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 ">
+                Welcome {{ user }}!
+            </div>
+            <div class="col-sm-2 ">
+                    <a href="myaccount/{{ user.id }}" class="btn btn-default active" role="button">Edit My Account</a>
+            </div>
+            <div class="col-sm-1 ">
+                <a href="logoff" class="btn btn-default active" role="button">Logout</a>
+            </div>
+        </div>
+        <br>
+
+        <div class="row ">
+            <div class="col ">
+                <div class="col text-center">Quotes</div>
+                {% for quote in all_qoutes %}
+                <div class="col blackborder">                
+                    {{ quote.author }}: {{ quote.text }}
+                    <br><br>Posted by: <a href="/user/{{ quote.posted_by.id }}">{{ quote.posted_by }}</a>
+                    {% if quote.users_who_like.count > 0 %}
+                        <br>
+                            {{ quote.users_who_like.count }} people like this
+                        <br>
+                    {% endif %}
+
+                    <div class="col text-right">
+                            <form action="process_like" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="quote_id" value="{{ quote.id }}">
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                <button type="submit" class="btn btn-secondary">Like</button>
+                            </form>                        
+                    </div>
+
+                    {% if quote.posted_by_id == user.id %}  
+                    <form action="process_delete" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value="{{ quote.id }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    {% endif %}
+                    <br>
+
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+            <div class="col ">
+
+            </div>
+            <div class="col ">
+                    <div class="col text-center">Add a Quote!</div>
+                    <form action="process_add" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="inputName" class="col-sm-3 col-form-label">Author</label>
+                            <div class="col-sm-4 padleftzero">
+                                <input type="text" class="form-control" name="author" id="inputAuthor" >
+                            </div>
+                            <div class="formflash">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if "author" in message.tags %} {{ message }} {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>                            
+                        </div>
+    
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="textareaQuote">Quote</label>
+                            <textarea class="col-sm-7 form-control " id="textareaQuote" name="text" rows="3"></textarea>
+                            <div class="formflash">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if "text" in message.tags %} {{ message }} {% endif %}
+                                {% endfor %}
+                            {% endif %}            
+                            </div>                
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 row">
+                                <input type="hidden" name="user_id" value=" {{ user.id }}">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                                
+                    </form>
+            </div>            
+        </div>
+        <br>
+
+    </div>
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -64,7 +64,7 @@ def process_registration(request):
         request.session["user_id"] = new_user.id
         request.session["first_name"] = f_name
 
-    return redirect("/altindex") # this changes depending on the base landing enpoint for each app
+    return redirect("/quotes") # this changes depending on the base landing enpoint for each app
 
 def process_login(request):
     print("login_registration/process_login")
@@ -97,7 +97,7 @@ def process_login(request):
             messages.error(request, u"You were not able to login.", 'login')
             return redirect('/')
 
-    return redirect('/altindex')  # this changes depending on the base landing enpoint for each app
+    return redirect('/quotes')  # this changes depending on the base landing enpoint for each app
 
 def pretend(request):
     print("pretend()")
@@ -116,7 +116,7 @@ def reset(request):
     print("reset()")
 
     request.session.clear()
-    return redirect('/')    
+    return redirect('/login_registration')    
 
 # def runonce(request):
 #     print("runonce()")
