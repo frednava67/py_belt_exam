@@ -1,0 +1,87 @@
+
+/*CSS reset settings here*/
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+td {
+    height: 20px;
+}
+
+.headerlabel {
+    margin: 20px 0px 20px 20px;
+    font-size: 26px;
+}
+
+.topdiv {
+    height: 100px;
+    background-color: azure;
+    border-bottom: 1px solid black;
+}
+
+.headerp {
+    padding: 20px 0px 20px 20px;
+    font-size: 36px;
+}
+
+.maincontainer {
+    width: 1000px;
+    margin: auto;
+}
+
+.mainleft {
+    display: inline-block;
+    width: 450px;
+}
+
+.mainright {
+    display: inline-block;    
+    width: 450px;
+}
+
+.secondline {
+    margin: 20px 0px 20px 20px;
+    font-size: 16px;
+    color: green;
+}
+
+.formlabel {
+    vertical-align: middle;
+    text-align: right;
+}
+
+.fncol-1 {
+    width: 100px;
+}
+
+.fncol-2 {
+    width: 200px;    
+}
+
+.fncol-3 {
+    width: 500px;    
+}
+
+.formtextbox {
+    height: 30px;
+    margin: 0px 0px 10px 10px;
+    border: 2px solid black;
+}
+
+.submitbtn {
+    height: 30px;
+    width: 75px;
+    float: right;
+    color: white;
+    border: 2px solid black;
+    box-shadow: 3px 3px 3px black;
+    background-color: #5a7dae;
+}
+
+.formflash {
+    margin-left: 10px;
+    color: red;
+    font-size: 12px;
+}

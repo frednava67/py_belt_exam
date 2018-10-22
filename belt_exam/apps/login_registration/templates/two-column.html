@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Login & Registration | Home</title>  <!-- CHANGE THIS PER APP -->
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel="stylesheet" href="{% static 'login_registration/css/style.css' %}">
+</head>
+<body>
+    <div class="topdiv">
+        <p class="headerp">Welcome!</p>  <!-- CHANGE THIS PER APP -->
+    </div>
+    <div class="maincontainer">
+        <div class="mainleft">
+            <p class="headerlabel">Registration</p>
+            <div class="tablediv">
+                <table class="formtable">
+                    <tbody>
+                        <form action="/login_registration/process_registration" method="POST">
+                        {% csrf_token %}
+                            <tr>
+                                <td>
+                                    <div class="formlabel fncol-1">First Name:</div>
+                                </td>
+                                <td>
+                                    <input type="text" class="formtextbox fncol-2" name="first_name" value="{{ first_name }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <div class="formflash">
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                {% if "fname" in message.tags %} {{ message }} {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td class="">
+                                    <div class="formlabel fncol-1">Last Name:</div>
+                                </td>
+                                <td>
+                                    <input type="text" class="formtextbox fncol-2" name="last_name" value="{{ last_name }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <div class="formflash">
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                {% if "lname" in message.tags %} {{ message }} {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </td>    
+                            </tr>
+                            <tr>
+                                <td class="">
+                                    <div class="formlabel fncol-1">Email:</div>
+                                </td>
+                                <td>
+                                    <input type="text" class="formtextbox fncol-2" name="email" value="{{ email }}">
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                        <div class="formflash">
+                                            {% if messages %}
+                                                {% for message in messages %}
+                                                    {% if "email" in message.tags %} {{ message }} {% endif %}
+                                                {% endfor %}
+                                            {% endif %}                                    
+                                        </div>
+                                </td>                                
+
+                            </tr>
+
+                            <tr>
+                                <td class="">
+                                    <div class="formlabel fncol-1">Password:</div>
+                                </td>
+                                <td>
+                                    <input type="password" class="formtextbox fncol-2" name="password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="formflash">
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                {% if "pwd" in message.tags %} {{ message }} {% endif %}
+                                            {% endfor %}
+                                        {% endif %}                                  
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="">
+                                    <div class="formlabel fncol-1">Confirm pw:</div>
+                                </td>
+                                <td>
+                                    <input type="password" class="formtextbox fncol-2" name="confirmpw">
+                                </td>
+                                <td>
+                                        <div class="formflash fncol-3"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="">
+                                    <div class="formlabel fncol-1"></div>
+                                </td>
+                                <td>
+                                    <input type="submit" class="submitbtn fncol-2" name="register" value="Register">
+                                </td>
+                                <td>
+                                        <div class="formflash fncol-3"></div>
+                                </td>
+                            </tr>                    
+                        </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mainright">
+            <p class="headerlabel">Login</p>
+            <div class="tablediv">
+                <table class="logintable">
+                    <tbody>
+                        <form action="/login_registration/process_login" method="POST">
+                        {% csrf_token %}
+                            <tr>
+                                <td class="">
+                                    <div class="formlabel fncol-1">Email:</div>
+                                </td>
+                                <td>
+                                    <input type="text" class="formtextbox fncol-2" name="loginemail">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="formflash">
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if "login" in message.tags %} {{ message }} {% endif %}
+                                        {% endfor %}
+                                    {% endif %}     
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="">
+                                    <div class="formlabel fncol-1">Password:</div>
+                                </td>
+                                <td>
+                                    <input type="password" class="formtextbox fncol-2" name="loginpassword">
+                                </td>
+                                <td>
+                                        <div class="formflash fncol-3"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="">
+                                    <div class="formlabel fncol-1"></div>
+                                </td>
+                                <td>
+                                    <input type="submit" class="submitbtn fncol-2" name="login" value="Login">
+                                </td>
+                            </tr>                    
+                        </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>

@@ -1,0 +1,3 @@
+#!/bin/bash
+echo Starting python3Env venv
+source ~/Dev/dojo/python_stack/myEnvironments/python3Env/bin/activate
