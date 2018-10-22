@@ -93,27 +93,51 @@ def process_edit(request):
     print("process_edit()")
 
     if request.method == "POST":
-        bFlashMessage = User.objects.basic_validator(request)
+        bFlashMessage = False
+        old_user = User.objects.get(id=int(request.POST['userid']))
 
-        request.session["first_name"] = request.POST['first_name']
-        request.session["last_name"] = request.POST['last_name']
-        request.session["email"] = request.POST['email']
+        if (old_user.first_name == request.POST['first_name'] and old_user.last_name == request.POST['last_name'] and old_user.email == request.POST['email']):
+            return redirect('/quotes')
 
         f_name = request.POST['first_name']
         l_name = request.POST['last_name']
         email = request.POST['email']
         uid = request.POST['userid']
 
+        # First Name - Required; No fewer than 2 characters; letters only
+        if len(f_name) < 2 or NAME_REGEX.search(f_name):
+            messages.error(request, u"First Name can only contain letters and be at least 2 characters", extra_tags="fname")
+            bFlashMessage = True  
+
+        # Last Name - Required; No fewer than 2 characters; letters only
+        if len(l_name) < 2 or NAME_REGEX.search(l_name):
+            messages.error(request, u"Last Name can only contain letters and be at least 2 characters", extra_tags="lname")
+            bFlashMessage = True     
+
+        # Email - Required; Valid Format
+        if not EMAIL_REGEX.match(email):
+            messages.error(request, u"Invalid Email Address!", extra_tags="email")
+            bFlashMessage = True      
+
+        #Email shouldn't be in database already
+        i = User.objects.filter(email=email).count()
+        if (i != 0 and old_user.email != request.POST['email']):
+            messages.error(request, u"Email Address already registered, please login.", 'email')
+            bFlashMessage = True  
+
+        request.session["first_name"] = request.POST['first_name']
+        request.session["last_name"] = request.POST['last_name']
+        request.session["email"] = request.POST['email']
+
     if bFlashMessage:
         request.session["edit_attempt_failed"] = True
         return redirect("/myaccount/" + uid)
     else:
-        request.session.clear()
         user_to_edit = User.objects.get(id=int(uid))
         user_to_edit.first_name = f_name
         user_to_edit.last_name = l_name
         user_to_edit.email = email
-        user.save()
+        user_to_edit.save()
 
     return redirect('/quotes')
 
